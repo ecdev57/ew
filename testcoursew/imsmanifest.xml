@@ -1,0 +1,40 @@
+<manifest>
+	<metadata>
+		<schema>ADL SCORM</schema>
+		<schemaversion>1.2</schemaversion>
+	</metadata>
+	<organizations default="englishworld_medical_org">
+	 	<organization identifier="englishworld_medical_org">
+	 		<!-- liste des items à afficher -->
+	 	 	<item identifier="moduleCourseQuizz">
+	 	 	  <title>EnglishWorld - SCORM COURSES QUIZZ</title>
+	 	 	  	<item identifier="playing_playing_item" identifierref="module_lesson_ressource">
+		          	<title>Lesson</title>
+		      	</item>
+		        <item identifier="module_exercice" identifierref="module_exercice_ressource" parameters="?questions=Module">
+		          <title>Nurse Quiz</title>
+		        </item>
+		    </item>
+	 	</organization>
+	</organizations>
+	 <!-- liste des ressources a intéger -->
+  <resources>  
+  	<resource identifier="module_lesson_ressource" type="webcontent" adlcp:scormtype="sco" href="content/lesson.html">
+  		<file href="content/lesson.html"/>
+      	<!-- <file href="Module1/nurse.jpg"/> -->
+      <dependency identifierref="common_files" />
+	</resource>
+    <resource identifier="module_exercice" type="webcontent" adlcp:scormtype="sco">
+    	<file href="essources/apiWrapper.js">
+    	<file href="ressources/launchpage.html"/>
+       <!-- <file href="ressources/assessmenttemplate.html"/>
+      <file href="ressources/background.jpg"/>
+      <file href="ressources/cclicense.png"/>
+      <file href="ressources/contentfunctions.js"/>
+      <file href="ressources/launchpage.html"/>
+      <file href="ressources/scormfunctions.js"/>
+      <file href="ressources/style.css"/> -->
+    </resource>  
+
+  </resources>
+</manifest>
