@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+	<meta charset="utf-8">
+    <title>Assessment</title>
+	<style type="text/css">
+		.geeen-label{
+			color: green;
+		}
+		.red-label{
+			color: red;
+		}
+	</style>
+</head>
+<body>
+<script type="text/javascript" src="./function.js"></script>
+<script type="text/javascript">
+	var contentSec = document.getElementById("section"); 
+	CrsQuests.AddQuestion( new Question ("com.scorm.englishworld.interactions.playing_1",
+                      "Ech sinn__Élodie.",
+                       QUESTION_TYPE_CHOICE,
+                       new Array("d´","/eng/","e"),
+                       new Array("d´"),
+                                "obj_playing")
+    );
+    CrsQuests.AddQuestion( new Question ("com.scorm.englishworld.interactions.playing_2",
+                                "Ech sinn__Steve.",
+                               QUESTION_TYPE_CHOICE,
+                                new Array("den", "de", "d'"),
+                                new Array("den"),
+                                "obj_playing")
+                );
+
+  
+CrsQuests.AddQuestion( new Question ("com.scorm.englishworld.interactions.playing_3",
+                                "Ech sinn__Denis.",
+                               QUESTION_TYPE_CHOICE,
+                                new Array("en", "de", "den"),
+                                new Array("den"),
+                                "obj_playing")
+                );
+CrsQuests.AddQuestion( new Question ("com.scorm.englishworld.interactions.playing_4",
+                      "Ech sinn__Sascha.",
+                       QUESTION_TYPE_CHOICE,
+                       new Array("d´","/de/","en"),
+                       new Array("de"),
+                                "obj_playing")
+    );
+    CrsQuests.AddQuestion( new Question ("com.scorm.englishworld.interactions.playing_5",
+                                "Ech sinn__Annabelle.",
+                               QUESTION_TYPE_CHOICE,
+                                new Array("d'", "eng", "e"),
+                                new Array("d'"),
+                                "obj_playing")
+                );
+
+  
+CrsQuests.AddQuestion( new Question ("com.scorm.englishworld.interactions.playing_6",
+                                "Ech sinn__Tanja.",
+                               QUESTION_TYPE_CHOICE,
+                                new Array("d'", "ø", "en"),
+                                new Array("d'"),
+                                "obj_playing")
+                );
+
+
+
+
+
+
+
+
+
+
+
+    tabLengt = CrsQuests.Questions.length;
+    var fig = document.createElement('figure');
+			  fig.id = 'figure';
+			  fig.name = 'figure';
+	var figc = document.createElement('figcaption');
+			  figc.id = 'figurec';
+			  figc.name = 'figurec';	
+	contentSec.appendChild(fig);
+	fig.appendChild(figc);	
+	for (var i = 0; i <= tabLengt-1; i++) {
+ 		if (CrsQuests.Questions[i].Type === "choice") {
+ 			var contentfigc = document.getElementById("figurec"); 
+ 				contentfigc.append(CrsQuests.Questions[i].Text);
+     	 	var nbasw = CrsQuests.Questions[i].Answers.length;
+   			var data = CrsQuests.Questions[i].Answers;
+   			
+			for (var j= 0; j <=nbasw-1; j++) {
+				//console.log(data[j]);
+
+			 	var newInput = document.createElement("INPUT");
+				newInput.id = "quest"+i+j;
+				newInput.name = "text"+i;
+				newInput.type = "radio";
+				newInput.value = data[j];
+				var newlabel = document.createElement("Label");
+					newlabel.id = "labquest"+i+j;
+					newlabel.setAttribute("for","quest"+i+j);
+					newlabel.innerHTML = data[j];
+					figc.appendChild(newInput);
+					figc.appendChild(newlabel);
+ 			}
+		contentfigc.innerHTML+="<br>";
+  		}
+	} 
+	var Box = document.createElement('input');
+	  	Box.type = 'submit';
+	  	Box.name = 'submit';
+	  	Box.id = 'submit';
+	  	 Box.value = "envoyer";
+	figc.appendChild(Box);
+
+   	Box.addEventListener("click", function(event){
+		event.preventDefault();
+		for (var i = 0; i <= tabLengt-1; i++) {
+			var coraw = CrsQuests.Questions[i].CorrectAnswer;
+	 		 for (var j= 0; j <=nbasw-1; j++) {
+
+	 		//var valselec=document.getElementById("quest"+i+j).checked;
+	 		//console.log(valselec);
+	 		//console.log(coraw[j]);
+	 		// if (coraw[j] == valselec) {
+	 		// 	console.log("bonne reponse");
+	 		// }
+	 		// 	if (valselec === coraw[i]) {
+	 		// 		console.log("bonne reponse");
+	 		// 	}else{
+	 		// 		console.log("mauvaise reponse");
+	 		// 	}
+				
+		 		if (document.getElementById("quest"+i+j).checked) {
+		 			var sumg = 0;
+				var summ = 0;
+		 				var targetElement = document.getElementById("labquest"+i+j);
+		 				var id_select = document.getElementById("quest"+i+j);
+						var valeur = document.getElementById("quest"+i+j).value;
+						
+					if (valeur == coraw[j]) {
+						sumg += i;
+						var countg = sumg+1;
+						var scoreg= ((countg/tabLengt)*100).toFixed(2);
+						targetElement.classList.remove("red-label");
+						targetElement.classList.add("geeen-label");
+			 		}else{
+			 			summ += i;
+			 			var countm = summ+1;
+			 			var scorem= ((countm/tabLengt)*100).toFixed(2);	
+			 			targetElement.classList.remove("geeen-label");
+						targetElement.classList.add("red-label");
+						
+			 		}
+
+				}
+	 		}
+		}
+
+		if(scoreg == undefined){
+			console.log("Sur un total de"+tabLengt+"question(s) vous avez un score de 0 % de bonne réponse"); 
+		}else{
+			console.log("Sur un total de "+tabLengt+" question(s) vous avez un score de "+scoreg+" % de bonne réponse"); 
+		}
+		if(scorem == undefined){
+			console.log("Sur un total de"+tabLengt+"question(s) vous avez un score de 0 % de bonne réponse"); 
+		}else{
+			console.log("Sur un total de "+tabLengt+" question(s) vous avez un score de "+scorem+" % de mauvaise réponse"); 
+		}
+		
+		console.log("vous avez"+countg+"bonne réponse"); 
+		console.log("vous avez"+countm+"mauvaise réponse");
+	})      
+</script>
+</body>
+</html>
